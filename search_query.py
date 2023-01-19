@@ -57,31 +57,22 @@ def search(search_query):
 
     if (year==0):
         print('Faceted Query')
-        query_es = advanced_queries.multi_match_agg_cross(processed_query, final_fields)
-        # if(len(search_fields)==0):
-        #     query_es = advanced_queries.multi_match_agg_cross(processed_query, all_fields)
-        # elif (len(search_fields) == 2):
-        #     query_es = advanced_queries.multi_match_agg_phrase(processed_query, all_fields)
-        # else:
-        #     query_es = advanced_queries.multi_match_agg_cross(processed_query, final_fields)
+        if(len(search_fields)==0):
+            query_es = advanced_queries.multi_match_agg_cross_fields(processed_query, all_fields)
+        elif (len(search_fields) == 2):
+            query_es = advanced_queries.multi_match_agg_phrase(processed_query, all_fields)
+        else:
+            query_es = advanced_queries.multi_match_agg_cross_fields(processed_query, final_fields)
 
     else:
         print('Range Query')
-        if(len(years_array) > 1):
-            year = [years_array[0] ,years_array[-1]]
-            print("ccccccccccccccccccccccc", year)
-            query_es = advanced_queries.multi_match_agg_year_range(processed_query, year, ['year'])
+        if (len(search_fields) == 0):
+            query_es = advanced_queries.multi_match_agg_sort_cross_fields(processed_query, year, ['year'])
+        elif (len(search_fields) == 2):
+            query_es = advanced_queries.multi_match_agg_sort_phrase(processed_query, year, ['year'])
         else:
-            query_es = advanced_queries.multi_match_agg_single_year(processed_query, ['year'])
-        # if (len(search_fields) == 0):
-        #     print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', processed_query)
-        #     query_es = advanced_queries.multi_match_agg_sort_cross(processed_query, year, ['year'])
-        # elif (len(search_fields) == 2):
-        #     print('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb', processed_query)
-        #     query_es = advanced_queries.multi_match_agg_sort_phrase(processed_query, year, ['year'])
-        # else:
-        #     print('ccccccccccccccccccccccccccccccccccccccccc', processed_query)
-        #     query_es = advanced_queries.multi_match_agg_sort_cross(processed_query, year, ['year'])
+            query_es = advanced_queries.multi_match_agg_sort_cross_fields(processed_query, year, ['year'])
+            
 
     print("QUERY BODY")
     print(query_es)

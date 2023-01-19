@@ -20,7 +20,8 @@ def createIndex():
                         "type": "custom",
                         "tokenizer": "icu_tokenizer",
                         "filter":["edge_ngram_custom_filter"]
-                    }
+                    },
+                
                 },
                 "filter" : {
                     "edge_ngram_custom_filter":{
@@ -45,7 +46,7 @@ def createIndex():
                         "analyzer" : "sinhala-analyzer",
                         "search_analyzer": "standard"
                     },
-                    "song_lyrics": {
+                    "lyrics": {
                         "type": "text",
                         "fields": {
                             "keyword": {
@@ -56,7 +57,7 @@ def createIndex():
                         "analyzer" : "sinhala-analyzer",
                         "search_analyzer": "standard"
                     },
-                    "sinhala_artist": {
+                    "artist": {
                         "type": "text",
                         "fields": {
                             "keyword": {
@@ -67,7 +68,7 @@ def createIndex():
                         "analyzer" : "sinhala-analyzer",
                         "search_analyzer": "standard"
                     },
-                    "sinhala_lyrics": {
+                    "lyricist": {
                         "type": "text",
                         "fields": {
                             "keyword": {
@@ -78,7 +79,7 @@ def createIndex():
                         "analyzer" : "sinhala-analyzer",
                         "search_analyzer": "standard"
                     },
-                    "sinhala_music": {
+                    "album": {
                         "type": "text",
                         "fields": {
                             "keyword": {
@@ -89,62 +90,9 @@ def createIndex():
                         "analyzer" : "sinhala-analyzer",
                         "search_analyzer": "standard"
                     },
-                    "sinhala_genre": {
-                        "type": "text",
-                        "fields": {
-                            "keyword": {
-                                "type": "keyword",
-                                "ignore_above": 256
-                            }
-                        },
-                        "analyzer" : "sinhala-analyzer",
-                        "search_analyzer": "standard"
+                    "year": {
+                        "type": "integer",
                     },
-                    "english_artist": {
-                        "type": "text",
-                        "fields": {
-                            "keyword": {
-                                "type": "keyword",
-                                "ignore_above": 256
-                            }
-                        },
-                    },
-                    "english_lyrics": {
-                        "type": "text",
-                        "fields": {
-                            "keyword": {
-                                "type": "keyword",
-                                "ignore_above": 256
-                            }
-                        },
-                    },
-                    "english_music": {
-                        "type": "text",
-                        "fields": {
-                            "keyword": {
-                                "type": "keyword",
-                                "ignore_above": 256
-                            }
-                        },
-                    },
-                    "english_genre": {
-                        "type": "text",
-                        "fields": {
-                            "keyword": {
-                                "type": "keyword",
-                                "ignore_above": 256
-                            }
-                        },
-                    },
-                    "views": {
-                        "type": "long",
-                        # "fields": {
-                        #     "keyword": {
-                        #         "type": "keyword",
-                        #         "ignore_above": 256
-                        #     }
-                        # },
-                }
             }
         }
     }

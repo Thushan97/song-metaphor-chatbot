@@ -58,54 +58,8 @@ def multi_match_agg_best(query, fields=['title','lyrics']):
 	q = json.dumps(q)
 	return q
 
-
-def multi_match_agg_sort_best(query, sort_num, fields=['title','song_lyrics']):
-    print ('sort num is ',sort_num)
-    q = {
-		"size": sort_num,
-		"sort": [
-			{"views": {"order": "desc"}},
-		],
-		"query": {
-			"multi_match": {
-				"query": query,
-				"fields": fields,
-				"operator": 'or',
-				"type": "best_fields"
-			}
-		},
-		"aggs": {
-			"Genre Filter": {
-				"terms": {
-					"field": "genre.keyword",
-					"size": 10
-				}
-			},
-			"Music Filter": {
-				"terms": {
-					"field": "music.keyword",
-					"size": 10
-				}
-			},
-			"Artist Filter": {
-				"terms": {
-					"field": "artist.keyword",
-					"size": 10
-				}
-			},
-			"Lyrics Filter": {
-				"terms": {
-					"field": "lyrics.keyword",
-					"size": 10
-				}
-			}
-		}
-	}
-    q = json.dumps(q)
-    return q
-
 #cross_filds
-def multi_match_agg_cross(query, fields=['title','song_lyrics']):
+def multi_match_agg_cross_fields(query, fields=['title','song_lyrics']):
     print ("QUERY FIELDS")
     print (fields)
     q = {
@@ -161,52 +115,6 @@ def multi_match_agg_cross(query, fields=['title','song_lyrics']):
 
     q = json.dumps(q)
     return q
-
-def multi_match_agg_sort_cross(query, sort_num, fields=['title','song_lyrics']):
-	print ('sort num is ',sort_num)
-	q = {
-		"size": sort_num,
-		"sort": [
-			{"views": {"order": "desc"}},
-		],
-		"query": {
-			"multi_match": {
-				"query": query,
-				"fields": fields,
-				"operator": 'or',
-				"type": "cross_fields"
-			}
-		},
-		"aggs": {
-			"Genre Filter": {
-				"terms": {
-					"field": "sinhala_genre.keyword",
-					"size": 10
-				}
-			},
-			"Music Filter": {
-				"terms": {
-					"field": "sinhala_music.keyword",
-					"size": 10
-				}
-			},
-			"Artist Filter": {
-				"terms": {
-					"field": "sinhala_artist.keyword",
-					"size": 10
-				}
-			},
-			"Lyrics Filter": {
-				"terms": {
-					"field": "sinhala_lyrics.keyword",
-					"size": 10
-				}
-			}
-		}
-	}
-	q = json.dumps(q)
-	return q
-
 
 #phrase_filds
 def multi_match_agg_phrase(query, fields=['title','song_lyrics']):
@@ -266,32 +174,31 @@ def multi_match_agg_phrase(query, fields=['title','song_lyrics']):
 	q = json.dumps(q)
 	return q
 
-
-def multi_match_agg_sort_phrase(query, sort_num, fields=['title','lyrics']):
-	print ('sort num is ',sort_num)
-	q = {
-		"size": sort_num,
+def multi_match_agg_sort_best(query, year, fields=['title','song_lyrics']):
+    print ('sort year is ',year)
+    q = {
+		"size": 100,
 		"sort": [
-			{"views": {"order": "desc"}},
+			{"year": {"order": "desc"}},
 		],
 		"query": {
 			"multi_match": {
 				"query": query,
 				"fields": fields,
 				"operator": 'or',
-				"type": "cross_fields"
+				"type": "best_fields"
 			}
 		},
 		"aggs": {
-			"Genre Filter": {
+			"Title Filter": {
 				"terms": {
-					"field": "genre.keyword",
+					"field": "title.keyword",
 					"size": 10
 				}
 			},
-			"Music Filter": {
+			"Lyricist Filter": {
 				"terms": {
-					"field": "music.keyword",
+					"field": "lyricist.keyword",
 					"size": 10
 				}
 			},
@@ -304,6 +211,132 @@ def multi_match_agg_sort_phrase(query, sort_num, fields=['title','lyrics']):
 			"Lyrics Filter": {
 				"terms": {
 					"field": "lyrics.keyword",
+					"size": 10
+				}
+			},
+            "Album Filter": {
+				"terms": {
+					"field": "album.keyword",
+					"size": 10
+				}
+			},
+            "Metaphor Filter": {
+				"terms": {
+					"field": "metaphors.keyword",
+					"size": 10
+				}
+			}
+		}
+	}
+    q = json.dumps(q)
+    return q
+
+def multi_match_agg_sort_cross_fields(query, year, fields=['title','lyrics']):
+	print ('sort num is ',year)
+	q = {
+		"size": 100,
+		"sort": [
+			{"year": {"order": "desc"}},
+		],
+		"query": {
+			"multi_match": {
+				"query": query,
+				"fields": fields,
+				"operator": 'or',
+				"type": "cross_fields"
+			}
+		},
+		"aggs": {
+			"Title Filter": {
+				"terms": {
+					"field": "title.keyword",
+					"size": 10
+				}
+			},
+			"Lyricist Filter": {
+				"terms": {
+					"field": "lyricist.keyword",
+					"size": 10
+				}
+			},
+			"Artist Filter": {
+				"terms": {
+					"field": "artist.keyword",
+					"size": 10
+				}
+			},
+			"Lyrics Filter": {
+				"terms": {
+					"field": "lyrics.keyword",
+					"size": 10
+				}
+			},
+            "Album Filter": {
+				"terms": {
+					"field": "album.keyword",
+					"size": 10
+				}
+			},
+            "Metaphor Filter": {
+				"terms": {
+					"field": "metaphors.keyword",
+					"size": 10
+				}
+			}
+		}
+	}
+	q = json.dumps(q)
+	return q
+
+def multi_match_agg_sort_phrase(query, year, fields=['title','lyrics']):
+	print ('sort num is ',year)
+	q = {
+		"size": 100,
+		"sort": [
+			{"year": {"order": "desc"}},
+		],
+		"query": {
+			"multi_match": {
+				"query": query,
+				"fields": fields,
+				"operator": 'or',
+				"type": "cross_fields"
+			}
+		},
+	"aggs": {
+			"Title Filter": {
+				"terms": {
+					"field": "title.keyword",
+					"size": 10
+				}
+			},
+			"Lyricist Filter": {
+				"terms": {
+					"field": "lyricist.keyword",
+					"size": 10
+				}
+			},
+			"Artist Filter": {
+				"terms": {
+					"field": "artist.keyword",
+					"size": 10
+				}
+			},
+			"Lyrics Filter": {
+				"terms": {
+					"field": "lyrics.keyword",
+					"size": 10
+				}
+			},
+            "Album Filter": {
+				"terms": {
+					"field": "album.keyword",
+					"size": 10
+				}
+			},
+            "Metaphor Filter": {
+				"terms": {
+					"field": "metaphors.keyword",
 					"size": 10
 				}
 			}
