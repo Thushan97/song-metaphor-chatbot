@@ -1,11 +1,9 @@
 from elasticsearch import Elasticsearch, helpers
-from elasticsearch_dsl import Index
-import json,re,os
+import json
 import datetime
 
 client = Elasticsearch(HOST="http://localhost",PORT=9200)
 INDEX = 'song-index1'
-
 
 def createIndex():
     settings = {
@@ -97,9 +95,6 @@ def createIndex():
         }
     }
 
-
-    # index = Index(INDEX,using=client)
-    # result = index.create()
     result = client.indices.create(index=INDEX , body =settings)
     print (result)
 
@@ -114,7 +109,6 @@ def data_generation(song_array):
     for song in song_array:
 
         title = song["title"]
-        #song_lyrics = clean_function(song["song_lyrics"])
         artist = song["artist"]
         lyricist = song["lyricist"]
         album = song["album"]

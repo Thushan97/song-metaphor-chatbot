@@ -5,11 +5,8 @@ INDEX = 'song-index1'
 
 synonym_artist = ['ගායකයා','ගයනවා','ගායනා','ගැයු','ගයන','ගයපු']
 synonym_lyricist = ['ගත්කරු','රචකයා','ලියන්නා','ලියන','රචිත','ලියපු','ලියව්‌ව','රචනා','රචක','ලියන්','ලියූ']
-synonym_album = ['ඇල්බමය', 'ඇල්බම්']
 
-synonym_list = [ synonym_artist, synonym_lyricist, synonym_album ]
-
-
+synonym_list = [ synonym_artist, synonym_lyricist ]
 
 def search(search_query):
     processed_query = ""
@@ -38,7 +35,7 @@ def search(search_query):
             search_query = year
             print ('Identified year ',year)
 
-        for i in range(0, 3):
+        for i in range(0, 2):
             if word in synonym_list[i]:
                 print('Adding field', field_list[i], 'for ', word, 'search field list')
                 search_fields.append(field_list[i])
@@ -57,19 +54,15 @@ def search(search_query):
 
     if (year==0):
         print('Faceted Query')
-        if(len(search_fields)==0):
-            query_es = advanced_queries.multi_match_agg_cross_fields(processed_query, all_fields)
-        elif (len(search_fields) == 2):
-            query_es = advanced_queries.multi_match_agg_phrase(processed_query, all_fields)
+        if (len(search_fields) == 2):
+            query_es = advanced_queries.multi_match_agg_best_fields(processed_query, all_fields)
         else:
             query_es = advanced_queries.multi_match_agg_cross_fields(processed_query, final_fields)
 
     else:
         print('Range Query')
-        if (len(search_fields) == 0):
-            query_es = advanced_queries.multi_match_agg_sort_cross_fields(processed_query, year, ['year'])
-        elif (len(search_fields) == 2):
-            query_es = advanced_queries.multi_match_agg_sort_phrase(processed_query, year, ['year'])
+        if (len(search_fields) == 2):
+            query_es = advanced_queries.multi_match_agg_sort_best(processed_query, year, ['year'])
         else:
             query_es = advanced_queries.multi_match_agg_sort_cross_fields(processed_query, year, ['year'])
             

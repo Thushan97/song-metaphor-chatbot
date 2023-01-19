@@ -30,10 +30,10 @@
 
 <div class="container">
     <head>
-        <title>Metaphor Search Engine</title>
+        <title>Songs Search Engine</title>
     </head>
     <hgroup class="mb30">
-        <h1><center>Songs Metaphor Search Engine</center></h1>
+        <h1><center>Songs Search Engine</center></h1>
         <h2 class="lead"><center>Enter your text</center></strong></h2>
     </hgroup>
 	<form action="http://127.0.0.1:5000/" method="post" align="center">
@@ -46,8 +46,7 @@
             <title>Metaphor Search Engine</title>
         </head>
     <hgroup class="mb20">
-		<h2>Your Results</h2>
-		<h3 class="lead" id="results"><strong class="text-danger">{{ num_results }}</strong> results found for : <strong class="text-danger">{{  query  }}</strong></h3>
+		<h3 class="lead" id="results"><center><strong class="text-danger">{{ num_results }}</strong> results found for : <strong class="text-danger">{{  query  }}</center></strong></h3>
 	</hgroup>
 
 
@@ -55,8 +54,9 @@
 		{% for hit in hits %}
 		<article class="search-result row">
 			<div class="col-md-12">
-				<h3 style="color:green;">{{ hit._source.title }}</h3>
-				<ul class="meta-search">
+				<center>
+					<h3 style="color:green;">{{ hit._source.title }}</h3>
+				<ul class="meta-search" style="list-style: none;">
 					<li><i class="glyphicon glyphicon-tags"></i> <span>Title - {{ hit._source.title }}</span></li>
 					<li><i class="glyphicon glyphicon-tags"></i> <span>Artist - {{ hit._source.artist }}</span></li>
 					<li><i class="glyphicon glyphicon-tags"></i> <span>Lyricist - {{ hit._source.lyricist }}</span></li>
@@ -66,6 +66,8 @@
                     <li><i class="glyphicon glyphicon-tags"></i> <span>Song Lyrics - </span></li>
 				</ul>
 				<p style="white-space: pre-line">{{ hit._source.lyrics }}</p>
+				</center>
+				
 			</div>
 			<div class="col-md-6">
 
@@ -85,8 +87,7 @@
 
 		{% else %}
 		<hgroup class="mb20">
-			<h2>Your Results</h2>
-			<h3 class="lead"><strong class="text-danger">No</strong> results found for : <strong class="text-danger">{{  query  }}</strong></h3>
+			<h3 class="lead"><center><strong class="text-danger">No</strong> results found for : <strong class="text-danger">{{  query  }}</strong></center></h3>
 		</hgroup>
 		{% endif %}
 	{% endif %}
